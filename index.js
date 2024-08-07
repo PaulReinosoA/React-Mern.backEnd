@@ -2,6 +2,7 @@ const cors = require('cors');
 const exprees = require('express');
 //! npm i dotenv --> configurar variables de entorino en el proyecto:
 require('dotenv').config();
+const path = require('path');
 
 const { dbConnection } = require('./database/config');
 // console.log(process.env)
@@ -26,6 +27,12 @@ app.use(exprees.json());
 //* todo AUTH : crear, login , renew
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
+
+// para el despliegue en considerando que express vera las rutas del dist del  frond en los archivos  del public
+app.use('*',(req,res)=>{
+  res.sendFile(path.join(__dirname,'public/index.html'));
+});
+
 // app.get('/', (req, res) => {
 //   // console.log('se requiere el /');
 //   res.json({

@@ -32,7 +32,7 @@ router.post(
   crearEvento
 );
 
-router.post(
+router.put(
   '/:id' /*, validarJWT*/,
   [
     check('title', 'El titulo es obligatorio').not().isEmpty(),

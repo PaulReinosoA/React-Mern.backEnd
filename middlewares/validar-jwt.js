@@ -7,7 +7,7 @@ const validarJWT = (req, res = response, next) => {
   if (!token) {
     res.status(401).json({
       ok: false,
-      msg: 'No se pudo obtener el token en l apeticion',
+      msg: 'No se pudo obtener el token en la peticion',
     });
   }
   // console.log('token',token);

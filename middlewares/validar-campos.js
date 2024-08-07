@@ -6,12 +6,23 @@ const { validationResult } = require('express-validator');
 const validarCampos = (req, res = response, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    const errorsArray = [];
+
+    const errorsMapped = errors.mapped();
+
+    for (const property in errorsMapped) {
+      if (property === 'email' || property === 'password') {
+        errorsArray.push(errorsMapped[property].msg);
+      }
+    }
+
+    const errorsString = errorsArray.join(', ');
+
     return res.status(400).json({
       ok: false,
-      errors: errors.mapped(),
+      msg: errorsString,
     });
   }
-
   next();
 };
 
